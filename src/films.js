@@ -10,7 +10,6 @@ function getAllDirectors(array) {
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
   let result = array.filter(movie => movie.director == director);
-  console.log("EXERCICE 2 ->", result);
   return result;
  
 }
@@ -44,7 +43,7 @@ function moviesAverageOfDirector(array, director) {
 
   let result = moviesAverage(peliculas);
   
-  console.log("EXERCICE 3 ->", result);
+  /* console.log("EXERCICE 3 ->", result); */
 
   return result;
   
@@ -99,10 +98,13 @@ function moviesAverageByCategory(array, categoria) {
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
 
-  /* let peliculas = array.map(pelicula => {
+  const nuevoArray = array.slice();
+
+  const peliculas = nuevoArray.map(pelicula => {
     
     let totalMinutos = 0;
     let str = pelicula.duration;
+    let peli = Object.assign({}, pelicula);
     if (/\s/.test(str)) {
       let horMin = str.slice(0, -3);
       let [horas, minutos] = horMin.split('h ');
@@ -114,36 +116,13 @@ function hoursToMinutes(array) {
       totalMinutos = parseInt(str);
     }
 
-    pelicula.duration = totalMinutos;
-    console.log(pelicula)
-    return pelicula;
+    peli.duration = totalMinutos;
+    return peli;
   });
-  console.log(peliculas);
-  return peliculas; */
 
-  let peliculas = array.map(pelicula => {
-    
-    let totalMinutos = 0;
-    let str = pelicula.duration;
-    if (/\s/.test(str)) {
-      let horMin = str.slice(0, -3);
-      let [horas, minutos] = horMin.split('h ');
-      totalMinutos = parseInt(horas) * 60 + parseInt(minutos);
-      
-    } else if (/h$/.test(str)) {
-      totalMinutos = parseInt(str) * 60;
-    } else {
-      totalMinutos = parseInt(str);
-    }
-
-    pelicula.duration = totalMinutos;
-    return pelicula;
-  })
-  .sort((a, b) => a.duration < b.duration ? 1 : -1);
-  
-  console.log(peliculas);
+  console.log("Ejercicio 7", nuevoArray);
   return peliculas;
-    
+
 };
 
 
@@ -154,9 +133,9 @@ function bestFilmOfYear(array, year) {
     .filter(pelicula => pelicula.year == year)
     .sort((a, b) => a.score < b.score?1:-1);
 
-  let mejor = sameYear[0];
+  let mejor = sameYear[0].score;
 
-  let mejores = sameYear.filter(ord => ord.score == mejor.score);
+  let mejores = sameYear.filter(ord => ord.score == mejor);
 
   return mejores;
         
